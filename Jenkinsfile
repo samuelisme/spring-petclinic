@@ -6,5 +6,10 @@ pipeline {
                 sh 'java --version'
             }
         }
+        stage('Push image') {
+        withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
+        dockerImage.push()
+        }
+    }    
     }
 }
