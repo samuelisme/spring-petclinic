@@ -4,7 +4,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'java --version'
-                sh 'whoami'
             }
         }
         stage('Push image') {
