@@ -8,11 +8,9 @@ pipeline {
         }
         stage('Push image') {
             steps {
-                script {
-                    withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
-                        dockerImage.push()
-                    }
-                }
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        	    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                sh 'docker push samuelcsh/repo:latest'
             }
         }
     }    
